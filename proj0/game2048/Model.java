@@ -209,13 +209,13 @@ public class Model extends Observable {
      */
     public static boolean atLeastOneMoveExists(Board b) {
         // TODO: Fill in this function.
-        for (int c = 0; c < 4; c++){
-            for (int r = 0; r < 4; r++) {
+        for (int c = 0; c < b.size(); c++){
+            for (int r = 0; r < b.size(); r++) {
                 for (int k = -1; k < 2; k++) {
                     if (c + k < 0 || r + k < 0 || k == 0 ||c + k > 3 ||r + k > 3) {
                         continue;
                     }
-                    if (b.tile(c, r) == null) {
+                    if (b.tile(c, r) == null || b.tile(c + k, r) == null || b.tile(c, r + k) == null) {
                         return true;
                     }
                     if (b.tile(c + k, r).value() == b.tile(c, r).value() || b.tile(c, r + k).value() == b.tile(c, r).value()) {
