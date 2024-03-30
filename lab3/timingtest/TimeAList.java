@@ -22,47 +22,43 @@ public class TimeAList {
     }
 
     public static void timeAListConstruction() {
-//        AList<Integer> Ns = new AList<>();
-//        AList<Double> times = new AList<>();
-//        AList<Integer> opCounts = new AList<>();
-//
-//        int N = 1000;
-//        while (N <= 128000){
-//            AList<Integer> list = new AList<>();
-//            Stopwatch sw = new Stopwatch();
-//            for (int i = 0; i < N; i++){
-//                list.addLast(i);
-//            }
-//            double timeInSeconds = sw.elapsedTime();
-//            Ns.addLast(N);
-//            opCounts.addLast(N);
-//            times.addLast(timeInSeconds);
-//            N *= 2;
-//        }
-//        printTimingTable(Ns, times, opCounts);
         AList<Integer> Ns = new AList<>();
         AList<Double> times = new AList<>();
         AList<Integer> opCounts = new AList<>();
-        int testAListLength = 1000;
-        for (int p = 0; p < 15; p++) {
-            if (p > 0) {
-                testAListLength *= 2;
-            }
-            Ns.addLast(testAListLength);
-            AList<Integer> testAList = new AList<>();
+
+        int N = 1000;
+        while (N <= 128000){
+            AList<Integer> list = new AList<>();
             Stopwatch sw = new Stopwatch();
-            for (int i = 0; i < testAListLength; i++) {
-                testAList.addLast(1);
+            for (int i = 0; i < N; i++){
+                list.addLast(i);
             }
             double timeInSeconds = sw.elapsedTime();
+            Ns.addLast(N);
+            opCounts.addLast(N);
             times.addLast(timeInSeconds);
-            opCounts.addLast(testAListLength);
+            N *= 2;
         }
         printTimingTable(Ns, times, opCounts);
-
-
-
-
+//        AList<Integer> Ns = new AList<>();
+//        AList<Double> times = new AList<>();
+//        AList<Integer> opCounts = new AList<>();
+//        int testAListLength = 1000;
+//        for (int p = 0; p < 15; p++) {
+//            if (p > 0) {
+//                testAListLength *= 2;
+//            }
+//            Ns.addLast(testAListLength);
+//            AList<Integer> testAList = new AList<>();
+//            Stopwatch sw = new Stopwatch();
+//            for (int i = 0; i < testAListLength; i++) {
+//                testAList.addLast(1);
+//            }
+//            double timeInSeconds = sw.elapsedTime();
+//            times.addLast(timeInSeconds);
+//            opCounts.addLast(testAListLength);
+//        }
+//        printTimingTable(Ns, times, opCounts);
 
 
 
