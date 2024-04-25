@@ -2,9 +2,9 @@ package deque;
 
 import afu.org.checkerframework.checker.igj.qual.I;
 
-public class ArrayDeque<Item> {
+public class ArrayDeque<T> {
     private int size;
-    private Item[] items;
+    private T[] items;
     public int nextFirst;
     public int nextLast;
     private void resize(int capacity){
@@ -12,7 +12,7 @@ public class ArrayDeque<Item> {
 //        System.arraycopy(items, 0, a, 0, size);
 //        items = a;
 
-        Item[] a = (Item[]) new Object[capacity];
+        T[] a = (T[]) new Object[capacity];
         int current = plusOne(nextFirst);
         for (int i = 0; i < size; i++){
             a[i] = items[current];
@@ -23,7 +23,7 @@ public class ArrayDeque<Item> {
 
     }
     public ArrayDeque(){
-        items = (Item[]) new Object[8];
+        items = (T[]) new Object[8];
         size = 0;
         nextFirst = 3;
         nextLast = 4;
@@ -34,7 +34,7 @@ public class ArrayDeque<Item> {
     private int plusOne(int index){
         return (index + 1) % items.length;
     }
-    public void addFirst(Item x){
+    public void addFirst(T x){
 //        if (size == items.length){
 //            resize(size * 2);
 //        }
@@ -54,7 +54,7 @@ public class ArrayDeque<Item> {
 
     }
 
-    public void addLast(Item x){
+    public void addLast(T x){
         if (size == items.length){
             resize(size * 2);
         }
@@ -80,7 +80,7 @@ public class ArrayDeque<Item> {
 //        }
 //        System.out.println();
 
-        Item[] a = (Item[]) new Object[items.length];
+        T[] a = (T[]) new Object[items.length];
         int current = plusOne(nextFirst);
         for (int i = 0; i < size; i++){
             a[i] = items[current];
@@ -91,12 +91,12 @@ public class ArrayDeque<Item> {
 
     }
 
-    public Item removeFirst(){
+    public T removeFirst(){
         if (size == 0){
             return null;
         }
         int first = plusOne(nextFirst);
-        Item itemToReturn = items[first];
+        T itemToReturn = items[first];
         items[first] = null;
         nextFirst = first;
         size --;
@@ -106,12 +106,12 @@ public class ArrayDeque<Item> {
         return itemToReturn;
 
     }
-    public Item removeLast(){
+    public T removeLast(){
         if (size == 0){
             return null;
         }
         int last = minusOne(nextLast);
-        Item itemToReturn = items[last];
+        T itemToReturn = items[last];
         items[last] = null;
         nextLast = last;
         size --;
@@ -121,12 +121,18 @@ public class ArrayDeque<Item> {
         return itemToReturn;
     }
 
-    public Item get(int index){
+    public T get(int index){
         if (size == 0 || index < 0 || index >= size){
             return null;
         }
-        return items[index];
+        int actualIndex = plusOne(nextFirst) % items.length;
+        return items[actualIndex];
     }
-
+//    public Iterator<T> iterator(){
+//
+//    }
+//    public boolean equals(Object o){
+//
+//    }
 
 }
