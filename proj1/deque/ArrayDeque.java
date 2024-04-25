@@ -4,19 +4,29 @@ import afu.org.checkerframework.checker.igj.qual.I;
 
 public class ArrayDeque<Item> {
     private int size;
-    private Item[] items ;
+    private Item[] items;
     public int nextFirst;
     public int nextLast;
     private void resize(int capacity){
+//        Item[] a = (Item[]) new Object[capacity];
+//        System.arraycopy(items, 0, a, 0, size);
+//        items = a;
+
         Item[] a = (Item[]) new Object[capacity];
-        System.arraycopy(items, 0, a, 0, size);
-        items = a;
+        int current = plusOne(nextFirst);
+        for (int i = 0; i < size; i++){
+            a[i] = items[current];
+            current = plusOne(current);
+        }
+        nextFirst = capacity - 1;
+        nextLast = size;
+
     }
     public ArrayDeque(){
         items = (Item[]) new Object[8];
         size = 0;
-        nextFirst = 0;
-        nextLast = 7;
+        nextFirst = 3;
+        nextLast = 4;
     }
     private int minusOne(int index){
         return (index - 1 + items.length) % items.length;
@@ -51,13 +61,13 @@ public class ArrayDeque<Item> {
 //        items[size - 1] = x;这个是刻舟求剑，是错的
         items[nextLast] = x;
         nextLast = plusOne(nextLast);
-
         size ++;
     }
     public boolean isEmpty(){
-        if (size == 0){
-            return true;
-        }else return false;
+//        if (size == 0){
+//            return true;
+//        }else return false;
+        return size == 0;
     }
 
 
@@ -65,21 +75,33 @@ public class ArrayDeque<Item> {
         return size;
     }
     public void printDeque(){
-        for (int i = 0; i < size; i ++){
-            System.out.print(items[i] + " ");
+//        for (int i = 0; i < size; i ++){
+//            System.out.print(items[i] + " ");
+//        }
+//        System.out.println();
+
+        Item[] a = (Item[]) new Object[items.length];
+        int current = plusOne(nextFirst);
+        for (int i = 0; i < size; i++){
+            a[i] = items[current];
+            current = plusOne(current);
+            System.out.print(a[i] + " ");
         }
         System.out.println();
+
     }
 
     public Item removeFirst(){
         if (size == 0){
             return null;
         }
-        Item itemToReturn = items[0];
-        items[0] = null;
+        int first = plusOne(nextFirst);
+        Item itemToReturn = items[first];
+        items[first] = null;
+        nextFirst = first;
         size --;
         if (size < items.length * 0.25 && items.length >= 16){
-            items[]
+            resize(items.length / 2);
         }
         return itemToReturn;
 
@@ -88,10 +110,15 @@ public class ArrayDeque<Item> {
         if (size == 0){
             return null;
         }
-        Item x = items[size - 1];
-        items[size - 1] = null;
+        int last = minusOne(nextLast);
+        Item itemToReturn = items[last];
+        items[last] = null;
+        nextLast = last;
         size --;
-        return x;
+        if (size < items.length * 0.25 && items.length >= 16){
+            resize(items.length / 2);
+        }
+        return itemToReturn;
     }
 
     public Item get(int index){
