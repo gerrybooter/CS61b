@@ -123,7 +123,7 @@ public class ArrayDeque<T> {
         if (size == 0 || index < 0 || index >= size){
             return null;
         }
-        int actualIndex = plusOne(nextFirst) % items.length;
+        int actualIndex = (plusOne(nextFirst) + index) % items.length;
         return items[actualIndex];
     }
 //    public Iterator<T> iterator(){
